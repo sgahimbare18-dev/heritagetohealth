@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "title": "Community Mental Health Launch",
+    "date": "2025-11-02",
+    "content": "We hosted our first wellness awareness campaign in Arusha, reaching over 200 community members. The event focused on mental health education and provided resources for local support.",
+    "image": "",
+    "video": "",
+    "author": "Dr. Simon Pierre",
+    "status": "published"
+  },
+  {
+    "id": 2,
+    "title": "New Partnership with Local Pharmacists",
+    "date": "2025-10-15",
+    "content": "Exciting news! We've partnered with Namnyaki Daniel and Clara Bernard Mushi to expand our health services. This collaboration will bring expert pharmaceutical advice to our community programs.",
+    "image": "",
+    "video": "",
+    "author": "Heritage to Health Team",
+    "status": "published"
+  }
+]
