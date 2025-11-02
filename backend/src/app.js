@@ -4,6 +4,7 @@ const connectDB = require('./config/db');
 const chatbotRoutes = require('./routes/chatbotRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 const updateRoutes = require('./routes/updateRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
 
 const app = express();
 
@@ -18,5 +19,6 @@ app.use(express.json());
 app.use('/api', chatbotRoutes);
 app.use('/api', contactRoutes);
 app.use('/api/updates', updateRoutes);
+app.use('/api/upload', uploadRoutes);
 
 module.exports = app;

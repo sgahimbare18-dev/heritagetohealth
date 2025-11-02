@@ -1,11 +1,11 @@
 const axios = require('axios');
 const ChatLog = require('../models/ChatLog');
 
-const chatWithAmani = async (req, res) => {
+const chatWithClara = async (req, res) => {
   const { message, userId } = req.body;
 
   try {
-    const systemPrompt = `You are Amani, the Heritage to Health virtual guide.
+    const systemPrompt = `You are Clara, the Heritage to Health virtual guide.
 Your mission is to educate visitors about reproductive health, menstrual hygiene, and cultural practices that connect heritage with modern health.
 Speak in a warm, respectful, and educational tone.
 Never offer medical diagnosis or prescriptions.
@@ -38,8 +38,21 @@ Focus on empowering Maasai girls and women through education, awareness, and sus
     res.json({ reply });
   } catch (error) {
     console.error('Error with OpenAI API:', error);
-    res.status(500).json({ error: 'Chatbot failed to respond' });
+
+    // Handle specific error types
+    if (error.response?.status === 429) {
+      res.status(429).json({
+        error: 'Rate limit exceeded. Please wait a moment before trying again.',
+        retryAfter: error.response.headers['retry-after'] || '60'
+      });
+    } else if (error.response?.status === 401) {
+      res.status(500).json({ error: 'Authentication failed. Please check API key.' });
+    } else if (error.response?.status === 400) {
+      res.status(400).json({ error: 'Invalid request. Please try rephrasing your question.' });
+    } else {
+      res.status(500).json({ error: 'Chatbot is temporarily unavailable. Please try again later.' });
+    }
   }
 };
 
-module.exports = { chatWithAmani };
+module.exports = { chatWithClara };
