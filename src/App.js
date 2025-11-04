@@ -12,9 +12,11 @@ import Donate from './pages/Donate';
 import Partnerships from './pages/Partnerships';
 import HealthServices from './pages/HealthServices';
 import Updates from './pages/Updates';
-import AdminUpdatesPage from './pages/AdminUpdatesPage';
 import Login from './components/Login';
-import Chatbot from './components/Chatbot';
+import AdminProjectsPage from './pages/AdminProjectsPage';
+import AdminProgramsPage from './pages/AdminProgramsPage';
+import AdminUpdatesPage from './pages/AdminUpdatesPage';
+import AdminImpactsPage from './pages/AdminImpactsPage';
 import './App.css';
 
 function App() {
@@ -35,9 +37,11 @@ function App() {
             <Route path="/updates" element={<Updates />} />
             <Route path="/admin" element={<Login />} />
             <Route path="/admin/updates" element={<AdminUpdatesPage />} />
+            <Route path="/admin/projects" element={<AdminProjectsPage />} />
+            <Route path="/admin/programs" element={<AdminProgramsPage />} />
+            <Route path="/admin/impacts" element={<AdminImpactsPage />} />
           </Routes>
           <Footer />
-          <Chatbot />
         </div>
       </Router>
     </HelmetProvider>

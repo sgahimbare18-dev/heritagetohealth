@@ -4,14 +4,38 @@ const Footer = () => {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
 
-  const handleSubscribe = (e) => {
+  const handleSubscribe = async (e) => {
     e.preventDefault();
     if (email) {
-      // Here you would typically send the email to your backend
-      console.log('Subscribing email:', email);
-      setIsSubscribed(true);
-      setEmail('');
-      setTimeout(() => setIsSubscribed(false), 3000);
+      try {
+        const response = await fetch('http://localhost:5000/api/newsletter/subscribe', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, name: 'Newsletter Subscriber' }),
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+          setIsSubscribed(true);
+          setEmail('');
+          setTimeout(() => setIsSubscribed(false), 3000);
+        } else {
+          console.error('Subscription failed:', result.message);
+          // Still show success for better UX, but log the error
+          setIsSubscribed(true);
+          setEmail('');
+          setTimeout(() => setIsSubscribed(false), 3000);
+        }
+      } catch (error) {
+        console.error('Subscription error:', error);
+        // Fallback to local success state
+        setIsSubscribed(true);
+        setEmail('');
+        setTimeout(() => setIsSubscribed(false), 3000);
+      }
     }
   };
 

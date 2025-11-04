@@ -196,6 +196,24 @@ const AdminUpdatesPage = () => {
             Add Testimonial
           </button>
           <button
+            onClick={() => navigate('/admin/projects')}
+            className="px-6 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+          >
+            Manage Projects
+          </button>
+          <button
+            onClick={() => navigate('/admin/programs')}
+            className="px-6 py-2 bg-orange-600 text-white rounded hover:bg-orange-700"
+          >
+            Manage Programs
+          </button>
+          <button
+            onClick={() => navigate('/admin/impacts')}
+            className="px-6 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
+          >
+            Manage Impacts
+          </button>
+          <button
             onClick={handleLogout}
             className="px-6 py-2 bg-red-600 text-white rounded hover:bg-red-700"
           >

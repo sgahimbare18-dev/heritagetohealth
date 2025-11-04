@@ -72,13 +72,13 @@ const UpdateList = ({ updates, isAdmin = false, onEdit, onDelete, onToggleStatus
                 <iframe
                   src={update.video}
                   title={update.title}
-                  className="w-full h-64 rounded-lg"
+                  className="w-full aspect-[16/9] rounded-lg"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 ></iframe>
               ) : (
-                <video controls className="w-full h-64 rounded-lg">
+                <video controls className="w-full aspect-[16/9] rounded-lg">
                   <source src={update.video} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>

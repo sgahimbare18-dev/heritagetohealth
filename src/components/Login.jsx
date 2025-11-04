@@ -58,6 +58,9 @@ const Login = () => {
           </p>
           <ul className="text-xs text-gray-500 mt-2">
             <li>• Updates management at /admin/updates</li>
+            <li>• Projects management at /admin/projects</li>
+            <li>• Programs management at /admin/programs</li>
+            <li>• Impacts management at /admin/impacts</li>
             <li>• Testimonials management at /admin/testimonials</li>
           </ul>
         </div>

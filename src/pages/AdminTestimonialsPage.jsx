@@ -95,7 +95,18 @@ const AdminTestimonialsPage = () => {
   return (
     <div className="container mx-auto p-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold">Admin Panel - Testimonials</h1>
+        <div>
+          <button
+            onClick={() => navigate('/admin/updates')}
+            className="flex items-center text-blue-600 hover:text-blue-800 mb-4"
+          >
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to Admin Dashboard
+          </button>
+          <h1 className="text-4xl font-bold">Admin Panel - Testimonials</h1>
+        </div>
         <div className="flex space-x-4">
           <button
             onClick={handleAddTestimonial}
@@ -108,6 +119,12 @@ const AdminTestimonialsPage = () => {
             className="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700"
           >
             Manage Updates
+          </button>
+          <button
+            onClick={() => navigate('/admin/projects')}
+            className="px-6 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+          >
+            Manage Projects
           </button>
           <button
             onClick={handleLogout}

@@ -1,4 +1,5 @@
 import React from "react";
+import NewsletterForm from './NewsletterForm';
 
 export default function NewsletterSection() {
   return (
@@ -7,7 +8,7 @@ export default function NewsletterSection() {
         Heritage to Health Newsletter
       </h1>
 
-      {/* Mailchimp Signup Form */}
+      {/* Zoho Campaigns Newsletter Form */}
       <div className="max-w-xl mx-auto bg-white p-6 rounded-2xl shadow-md">
         <h2 className="text-2xl font-semibold text-gray-800 mb-3 text-center">
           Subscribe for Updates
@@ -17,27 +18,13 @@ export default function NewsletterSection() {
           leadership, and holistic health.
         </p>
 
-        {/* Paste the Mailchimp embed code here */}
-        <div dangerouslySetInnerHTML={{
-          __html: `
-            <!-- Begin Mailchimp Signup Form -->
-            <form action="https://YOUR_MAILCHIMP_LIST_URL" method="post" target="_blank" noValidate>
-              <div class="flex flex-col space-y-3">
-                <input type="email" name="EMAIL" placeholder="Your email address" required class="p-3 border border-gray-300 rounded-md w-full" />
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md">
-                  Subscribe
-                </button>
-              </div>
-            </form>
-            <!-- End Mailchimp Signup Form -->
-          `
-        }} />
+        <NewsletterForm />
       </div>
 
       {/* Display latest newsletter link */}
       <div className="text-center mt-10">
         <a
-          href="https://mailchi.mp/yourcampaignlink"
+          href="https://zoho.com/campaigns"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-600 hover:underline text-lg font-medium"

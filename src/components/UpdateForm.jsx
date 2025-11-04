@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const UpdateForm = ({ update, onSave, onCancel }) => {
@@ -10,8 +10,6 @@ const UpdateForm = ({ update, onSave, onCancel }) => {
     author: '',
     status: 'draft'
   });
-  const [imageFile, setImageFile] = useState(null);
-  const [videoFile, setVideoFile] = useState(null);
   const [preview, setPreview] = useState(false);
   const [uploading, setUploading] = useState(false);
 
