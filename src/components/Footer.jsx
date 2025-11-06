@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import API_URL from '../apiConfig';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -8,7 +9,7 @@ const Footer = () => {
     e.preventDefault();
     if (email) {
       try {
-        const response = await fetch('http://localhost:5000/api/newsletter/subscribe', {
+        const response = await fetch(`${API_URL}/api/newsletter/subscribe`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

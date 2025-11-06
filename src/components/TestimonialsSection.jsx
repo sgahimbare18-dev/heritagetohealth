@@ -1,43 +1,35 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import API_URL from '../apiConfig';
 
 const TestimonialsSection = () => {
   const [testimonials, setTestimonials] = useState([]);
 
-  const loadTestimonials = () => {
-    const storedTestimonials = localStorage.getItem('testimonials');
-    if (storedTestimonials) {
-      const allTestimonials = JSON.parse(storedTestimonials);
-      // Filter to show only published testimonials that are marked to show on home
-      const homeTestimonials = allTestimonials.filter(testimonial =>
-        testimonial.status === 'published' && testimonial.showOnHome === true
-      );
-      setTestimonials(homeTestimonials);
-    } else {
+  const loadTestimonials = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/testimonials`);
+      const items = Array.isArray(response.data) ? response.data : [];
+      const filtered = items.filter(t => t.published && t.showOnHome);
+      const mapped = filtered.map(item => ({
+        id: item._id,
+        name: item.author,
+        location: '',
+        message: item.quote,
+        photo: item.image,
+      }));
+      setTestimonials(mapped);
+    } catch (error) {
+      console.error('Error loading testimonials:', error);
       setTestimonials([]);
     }
   };
 
   useEffect(() => {
-    const handleStorageChange = (e) => {
-      if (e.key === 'testimonials') {
-        loadTestimonials();
-      }
-    };
-
-    const handleCustomEvent = () => {
-      loadTestimonials();
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    window.addEventListener('testimonialsUpdated', handleCustomEvent);
-
-    // Initial load
     loadTestimonials();
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('testimonialsUpdated', handleCustomEvent);
-    };
+    // Listen for admin-triggered refresh events
+    const handleCustomEvent = () => loadTestimonials();
+    window.addEventListener('testimonialsUpdated', handleCustomEvent);
+    return () => window.removeEventListener('testimonialsUpdated', handleCustomEvent);
   }, []);
 
   return (

@@ -2,30 +2,36 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import UpdateList from '../components/UpdateList';
 import NewsletterForm from '../components/NewsletterForm';
+import axios from 'axios';
+import API_URL from '../apiConfig';
 
 const Updates = () => {
   const [updates, setUpdates] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadUpdates = () => {
-      const storedUpdates = localStorage.getItem('updates');
-      if (storedUpdates) {
-        setUpdates(JSON.parse(storedUpdates));
-      } else {
-        // Load from JSON file if no localStorage data
-        fetch('/data/updates.json')
-          .then(response => response.json())
-          .then(data => {
-            setUpdates(data);
-            localStorage.setItem('updates', JSON.stringify(data));
-          })
-          .catch(error => {
-            console.error('Error loading updates:', error);
-            setUpdates([]);
-          });
+    const loadUpdates = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/api/updates`);
+        const items = Array.isArray(response.data) ? response.data : [];
+        const mapped = items.map((item) => ({
+          id: item._id,
+          title: item.title,
+          content: item.content,
+          image: item.image,
+          video: item.video,
+          author: item.author,
+          status: item.status || 'draft',
+          date: item.createdAt || new Date().toISOString(),
+        }));
+        // Show only published
+        setUpdates(mapped.filter(u => u.status === 'published'));
+      } catch (error) {
+        console.error('Error loading updates:', error);
+        setUpdates([]);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     loadUpdates();

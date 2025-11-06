@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ImpactForm from './ImpactForm';
+import API_URL from '../apiConfig';
 
 const ImpactList = () => {
   const [impacts, setImpacts] = useState([]);
@@ -16,7 +17,7 @@ const ImpactList = () => {
   const fetchImpacts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:5000/api/impacts');
+      const response = await axios.get(`${API_URL}/api/impacts`);
       setImpacts(response.data);
       setError(null);
     } catch (error) {
@@ -30,9 +31,9 @@ const ImpactList = () => {
   const handleSave = async (impactData) => {
     try {
       if (editingImpact) {
-        await axios.put(`http://localhost:5000/api/impacts/${editingImpact._id}`, impactData);
+        await axios.put(`${API_URL}/api/impacts/${editingImpact._id}`, impactData);
       } else {
-        await axios.post('http://localhost:5000/api/impacts', impactData);
+        await axios.post(`${API_URL}/api/impacts`, impactData);
       }
       fetchImpacts();
       setShowForm(false);
@@ -51,7 +52,7 @@ const ImpactList = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this impact?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/impacts/${id}`);
+        await axios.delete(`${API_URL}/api/impacts/${id}`);
         fetchImpacts();
       } catch (error) {
         console.error('Error deleting impact:', error);

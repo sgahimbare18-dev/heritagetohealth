@@ -7,7 +7,7 @@ const TestimonialsList = ({ testimonials, isAdmin, onEdit, onDelete, onToggleSta
         <p className="text-gray-500 text-center py-8">No testimonials found.</p>
       ) : (
         testimonials.map((testimonial) => (
-          <div key={testimonial.id} className="bg-white p-6 rounded-lg shadow-md border">
+          <div key={testimonial._id || testimonial.id} className="bg-white p-6 rounded-lg shadow-md border">
             <div className="flex items-start justify-between">
               <div className="flex items-start space-x-4">
                 {testimonial.photo && (
@@ -40,7 +40,7 @@ const TestimonialsList = ({ testimonials, isAdmin, onEdit, onDelete, onToggleSta
                     Home: {testimonial.showOnHome ? 'Yes' : 'No'}
                   </span>
                   <button
-                    onClick={() => onToggleStatus(testimonial.id)}
+                    onClick={() => onToggleStatus(testimonial._id || testimonial.id)}
                     className="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
                   >
                     Toggle Status
@@ -52,7 +52,7 @@ const TestimonialsList = ({ testimonials, isAdmin, onEdit, onDelete, onToggleSta
                     Edit
                   </button>
                   <button
-                    onClick={() => onDelete(testimonial.id)}
+                    onClick={() => onDelete(testimonial._id || testimonial.id)}
                     className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700"
                   >
                     Delete

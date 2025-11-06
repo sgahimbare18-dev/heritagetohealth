@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ProjectList from '../components/ProjectList';
 import ProjectForm from '../components/ProjectForm';
 import axios from 'axios';
+import API_URL from '../apiConfig';
 
 const AdminProjectsPage = () => {
   const [projects, setProjects] = useState([]);
@@ -25,7 +26,7 @@ const AdminProjectsPage = () => {
   const loadProjects = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:5000/api/projects');
+      const response = await axios.get(`${API_URL}/api/projects`);
       setProjects(response.data);
     } catch (error) {
       console.error('Error loading projects:', error);
@@ -39,10 +40,10 @@ const AdminProjectsPage = () => {
     try {
       if (editingProject) {
         // Update existing project
-        await axios.put(`http://localhost:5000/api/projects/${editingProject._id}`, projectData);
+        await axios.put(`${API_URL}/api/projects/${editingProject._id}`, projectData);
       } else {
         // Create new project
-        await axios.post('http://localhost:5000/api/projects', projectData);
+        await axios.post(`${API_URL}/api/projects`, projectData);
       }
       await loadProjects(); // Reload projects
       setEditingProject(null);
@@ -61,7 +62,7 @@ const AdminProjectsPage = () => {
   const handleDeleteProject = async (id) => {
     if (window.confirm('Are you sure you want to delete this project?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/projects/${id}`);
+        await axios.delete(`${API_URL}/api/projects/${id}`);
         await loadProjects(); // Reload projects
       } catch (error) {
         console.error('Error deleting project:', error);
@@ -74,7 +75,7 @@ const AdminProjectsPage = () => {
     try {
       const project = projects.find(p => (p._id || p.id) === id);
       if (project) {
-        await axios.put(`http://localhost:5000/api/projects/${id}`, {
+        await axios.put(`${API_URL}/api/projects/${id}`, {
           ...project,
           published: !project.published
         });

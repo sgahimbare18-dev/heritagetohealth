@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_URL from '../apiConfig';
 
 const ProjectForm = ({ project, onSave, onCancel }) => {
   const [formData, setFormData] = useState({
@@ -41,7 +42,7 @@ const ProjectForm = ({ project, onSave, onCancel }) => {
     formDataUpload.append('file', file);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/upload', formDataUpload, {
+      const response = await axios.post(`${API_URL}/api/upload`, formDataUpload, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

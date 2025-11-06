@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_URL from '../apiConfig';
 
 const ProgramsSection = () => {
   const [programs, setPrograms] = useState([]);
@@ -10,7 +11,7 @@ const ProgramsSection = () => {
 
   const loadPrograms = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/programs/published');
+      const response = await axios.get(`${API_URL}/api/programs/published`);
       setPrograms(response.data);
     } catch (error) {
       console.error('Error loading programs:', error);

@@ -22,17 +22,17 @@ const UpdateList = ({ updates, isAdmin = false, onEdit, onDelete, onToggleStatus
   return (
     <div className="space-y-6">
       {displayUpdates.map((update) => (
-        <article key={update.id} className="bg-white p-6 rounded-lg shadow-md">
+        <article key={update._id || update.id} className="bg-white p-6 rounded-lg shadow-md">
           <div className="flex justify-between items-start mb-4">
             <div>
               <h2 className="text-2xl font-semibold mb-2 text-green-600">{update.title}</h2>
-              <p className="text-gray-500 mb-2">{new Date(update.date).toLocaleDateString()}</p>
+              <p className="text-gray-500 mb-2">{new Date(update.createdAt || update.date).toLocaleDateString()}</p>
               <p className="text-gray-600 text-sm">By {update.author}</p>
             </div>
             {isAdmin && (
               <div className="flex space-x-2">
                 <button
-                  onClick={() => onToggleStatus(update.id)}
+                  onClick={() => onToggleStatus(update._id || update.id)}
                   className={`px-3 py-1 rounded text-sm ${
                     update.status === 'published'
                       ? 'bg-green-100 text-green-800'
@@ -48,7 +48,7 @@ const UpdateList = ({ updates, isAdmin = false, onEdit, onDelete, onToggleStatus
                   Edit
                 </button>
                 <button
-                  onClick={() => onDelete(update.id)}
+                  onClick={() => onDelete(update._id || update.id)}
                   className="px-3 py-1 bg-red-600 text-white rounded text-sm hover:bg-red-700"
                 >
                   Delete

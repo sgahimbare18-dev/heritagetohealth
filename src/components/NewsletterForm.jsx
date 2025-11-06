@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import API_URL from '../apiConfig';
 
 export default function NewsletterForm() {
   const [email, setEmail] = useState('');
@@ -15,7 +16,7 @@ export default function NewsletterForm() {
     setMessage('');
 
     try {
-      const response = await fetch('http://localhost:5000/api/newsletter/subscribe', {
+      const response = await fetch(`${API_URL}/api/newsletter/subscribe`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

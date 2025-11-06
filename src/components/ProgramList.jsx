@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ProgramForm from './ProgramForm';
+import API_URL from '../apiConfig';
 
 const ProgramList = () => {
   const [programs, setPrograms] = useState([]);
@@ -16,7 +17,7 @@ const ProgramList = () => {
   const fetchPrograms = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:5000/api/programs');
+      const response = await axios.get(`${API_URL}/api/programs`);
       setPrograms(response.data);
       setError(null);
     } catch (error) {
@@ -30,9 +31,9 @@ const ProgramList = () => {
   const handleSave = async (programData) => {
     try {
       if (editingProgram) {
-        await axios.put(`http://localhost:5000/api/programs/${editingProgram._id}`, programData);
+        await axios.put(`${API_URL}/api/programs/${editingProgram._id}`, programData);
       } else {
-        await axios.post('http://localhost:5000/api/programs', programData);
+        await axios.post(`${API_URL}/api/programs`, programData);
       }
       fetchPrograms();
       setShowForm(false);
@@ -51,7 +52,7 @@ const ProgramList = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this program?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/programs/${id}`);
+        await axios.delete(`${API_URL}/api/programs/${id}`);
         fetchPrograms();
       } catch (error) {
         console.error('Error deleting program:', error);
